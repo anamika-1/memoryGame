@@ -50,7 +50,9 @@ const cardArray = [
 ]
 cardArray.sort(() => 0.5 - Math.random())
 
+const alerts = document.querySelector('#alertMsg')
 const grid = document.querySelector('#grid')
+const scorecard = document.querySelector('#scorecard')
 const resultDisplay = document.querySelector('#result')
 let cardChoosen = []
 let cardChoosenIds = []
@@ -76,11 +78,15 @@ function checkMatch(){
     if(optionOneId == optionTwoId){
         cards[optionOneId].setAttribute('src','img/blank.png')
         cards[optionTwoId].setAttribute('src','img/blank.png')
-        alert('You have clicked the same image!')
+        alerts.style.visibility = "visible"
+        alerts.textContent = "You have clicked the same image!"
     }
 
+
+
     if(cardChoosen[0] === cardChoosen[1]){
-        alert('You found a match!')
+        alerts.style.visibility = "visible"
+        alerts.textContent = "Yay!You found a Match"
         cards[optionOneId].setAttribute('src','img/white.png')
         cards[optionTwoId].setAttribute('src','img/white.png')
         cards[optionOneId].removeEventListener('click',flipCard)
@@ -90,13 +96,17 @@ function checkMatch(){
     else{
         cards[optionOneId].setAttribute('src','img/blank.png')
         cards[optionTwoId].setAttribute('src','img/blank.png')
-        alert('Sorry try again!')
+        alerts.style.visibility = "visible"
+        alerts.textContent = "Sorry try again!"
+        
     }
     cardChoosen = []
     cardChoosenIds = []
     resultDisplay.textContent = cardWon.length
     if(cardWon.length == cardArray.length/2){
-        resultDisplay.textContent = 'Congrats you found them all'
+        alerts.style.visibility = "hidden"
+        scorecard.textContent = "Congrats! You found them All"
+        scorecard.style.width = "400px"
     }
 }
 function flipCard(){
